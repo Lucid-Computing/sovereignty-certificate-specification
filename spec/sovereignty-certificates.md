@@ -1,92 +1,58 @@
-# **Sovereignty Certificates (Draft)**
+# Sovereignty Certificates
 
-0 Introduction	3
+**Status:** Draft
+**Version:** 0.1.0
+**Date:** 2025-10-21
+**Prepared by:** Sovereignty Certificates Working Group
 
-[0.1 General	3](#0.1-general)
+---
 
-[0.2 The Challenge of Verifiable Sovereignty	4](#0.2-the-challenge-of-verifiable-sovereignty)
+## Table of Contents
 
-[0.3 Principles of Location-Based Attestation	4](#0.3-principles-of-location-based-attestation)
-
-[1\. Scope	5](#heading=)
-
-[2\. Normative References	5](#heading=)
-
-[3\. Terms and Definitions	6](#heading=)
-
-[4\. Architectural Framework	8](#heading=)
-
-[4.1 Roles and Responsibilities	8](#heading=)
-
-[4.2 Conceptual Message Flow	10](#heading=)
-
-[5\. Attester Requirements	11](#heading=)
-
-[5.1 Hardware Root of Trust (HRoT) Foundation	11](#heading=)
-
-[5.2 Trusted Execution Environment (TEE) Capabilities	11](#heading=)
-
-[5.3 Ephemeral Key Management and Binding	11](#heading=)
-
-[5.4 Platform Evidence Collection	12](#heading=)
-
-[5.5 Location Measurement Agent (LVA)	12](#heading=)
-
-[5.6 Evidence Envelope Assembly and Signing	13](#heading=)
-
-[6\. Verifier Requirements	13](#heading=)
-
-[6.1 Secure Endpoint and Transport	13](#heading=)
-
-[6.2 Evidence Parsing and Validation	13](#heading=)
-
-[6.3 Location Computation	14](#heading=)
-
-[6.4 Policy Engine	14](#heading=)
-
-[6.5 Verifiable Attestation Result (VAR) Generation and Signing	15](#heading=)
-
-[7\. Anchor and Endorser Requirements	15](#heading=)
-
-[7.1 Anchor Fleet Requirements	15](#heading=)
-
-[7.2 Endorser Requirements	16](#heading=)
-
-[8\. Security Considerations	16](#heading=)
-
-[8.1 Threat Model	16](#heading=)
-
-[8.2 Cryptographic Controls	17](#heading=)
-
-[8.3 Mitigations for Specific Attacks	17](#heading=)
-
-[8.4 Operational Security	18](#heading=)
-
-[Annex A (Normative) Sovereignty Certificate EAT Profile	19](#annex-a-\(normative\)-sovereignty-certificate-eat-profile)
-
-[A.1 Profile Definition	19](#heading=)
-
-[A.2 Claims Set	20](#heading=)
-
-[Annex B (Informative) Example Implementation Workflow	22](#annex-b-\(informative\)-example-implementation-workflow)
-
-[B.1 Pod Startup and Gating	22](#heading=)
-
-[B.2 Attester Initialization	22](#heading=)
-
-[B.3 Location Measurement	22](#heading=)
-
-[B.4 Evidence Submission	22](#heading=)
-
-[B.5 Verification and VAR Issuance	23](#heading=)
-
-[B.6 Application Ungating	23](#heading=)
-
-[B.7 Continuous Rotation	23](#heading=)
-
-[Annex C (Informative) Crosswalk to Existing Standards	23](#annex-c-\(informative\)-crosswalk-to-existing-standards)
-
-## 
+- [0 Introduction](#0-introduction)
+  - [0.1 General](#01-general)
+  - [0.2 The Challenge of Verifiable Sovereignty](#02-the-challenge-of-verifiable-sovereignty)
+  - [0.3 Principles of Location-Based Attestation](#03-principles-of-location-based-attestation)
+- [1. Scope](#1-scope)
+- [2. Normative References](#2-normative-references)
+- [3. Terms and Definitions](#3-terms-and-definitions)
+- [4. Architectural Framework](#4-architectural-framework)
+  - [4.1 Roles and Responsibilities](#41-roles-and-responsibilities)
+  - [4.2 Conceptual Message Flow](#42-conceptual-message-flow)
+- [5. Attester Requirements](#5-attester-requirements)
+  - [5.1 Hardware Root of Trust (HRoT) Foundation](#51-hardware-root-of-trust-hrot-foundation)
+  - [5.2 Trusted Execution Environment (TEE) Capabilities](#52-trusted-execution-environment-tee-capabilities)
+  - [5.3 Ephemeral Key Management and Binding](#53-ephemeral-key-management-and-binding)
+  - [5.4 Platform Evidence Collection](#54-platform-evidence-collection)
+  - [5.5 Location Measurement Agent (LVA)](#55-location-measurement-agent-lva)
+  - [5.6 Evidence Envelope Assembly and Signing](#56-evidence-envelope-assembly-and-signing)
+- [6. Verifier Requirements](#6-verifier-requirements)
+  - [6.1 Secure Endpoint and Transport](#61-secure-endpoint-and-transport)
+  - [6.2 Evidence Parsing and Validation](#62-evidence-parsing-and-validation)
+  - [6.3 Location Computation](#63-location-computation)
+  - [6.4 Policy Engine](#64-policy-engine)
+  - [6.5 Verifiable Attestation Result (VAR) Generation and Signing](#65-verifiable-attestation-result-var-generation-and-signing)
+- [7. Anchor and Endorser Requirements](#7-anchor-and-endorser-requirements)
+  - [7.1 Anchor Fleet Requirements](#71-anchor-fleet-requirements)
+  - [7.2 Endorser Requirements](#72-endorser-requirements)
+- [8. Security Considerations](#8-security-considerations)
+  - [8.1 Threat Model](#81-threat-model)
+  - [8.2 Cryptographic Controls](#82-cryptographic-controls)
+  - [8.3 Mitigations for Specific Attacks](#83-mitigations-for-specific-attacks)
+  - [8.4 Operational Security](#84-operational-security)
+- [Annex A (Normative) Sovereignty Certificate EAT Profile](#annex-a-normative-sovereignty-certificate-eat-profile)
+  - [A.1 Profile Definition](#a1-profile-definition)
+  - [A.2 Claims Set](#a2-claims-set)
+- [Annex B (Informative) Example Implementation Workflow](#annex-b-informative-example-implementation-workflow)
+  - [B.1 Pod Startup and Gating](#b1-pod-startup-and-gating)
+  - [B.2 Attester Initialization](#b2-attester-initialization)
+  - [B.3 Location Measurement](#b3-location-measurement)
+  - [B.4 Evidence Submission](#b4-evidence-submission)
+  - [B.5 Verification and VAR Issuance](#b5-verification-and-var-issuance)
+  - [B.6 Application Ungating](#b6-application-ungating)
+  - [B.7 Continuous Rotation](#b7-continuous-rotation)
+- [Annex C (Informative) Crosswalk to Existing Standards](#annex-c-informative-crosswalk-to-existing-standards)
+- [References](#references)
 
 ## **0 Introduction**
 
@@ -100,19 +66,19 @@ While this document is structured in a manner similar to international standards
 
 The publication of this specification is intended to foster an ecosystem of trusted, sovereign computing. The working group anticipates that this document will evolve and may contribute to future formal standardization efforts as the technology and market mature.
 
-### **0.1 General** {#0.1-general}
+### **0.1 General**
 
 The increasing globalization of data processing and cloud computing, coupled with the proliferation of stringent data residency and sovereignty regulations such as the EU’s General Data Protection Regulation (GDPR), Cybersecurity Act and Cloud Certification Scheme (EUCS), as well as sectoral certification in healthcare and finance across jurisdictions, has created a critical need for organizations to possess verifiable proof of the physical location of their computing workloads.3 Existing methods for ensuring data residency when using cloud computing rely on contractual agreements, operational policies, and manual audits, which provide assurances but not cryptographic, machine-verifiable proof.[^1] This gap exposes organizations to significant compliance risks and security vulnerabilities.
 
 This document specifies a framework for establishing, implementing, maintaining, and continually improving a system for generating and appraising "Sovereignty Certificates."[^2] These certificates are cryptographic credentials that provide verifiable, unforgeable proof of the physical location of a computing device, such as a Central Processing Unit (CPU) or Graphics Processing Unit (GPU), at a specific point in time.3 By defining a unified industry standard, this document aims to enable a future where any organization can cryptographically prove the jurisdiction in which its computing workloads are processed, fostering a new level of trust and security in the digital infrastructure.
 
-### **0.2 The Challenge of Verifiable Sovereignty** {#0.2-the-challenge-of-verifiable-sovereignty}
+### **0.2 The Challenge of Verifiable Sovereignty**
 
 The absence of a standardized method to cryptographically prove the physical location of data and applications presents two fundamental problems. Firstly, it creates significant compliance risk. Businesses in regulated industries like finance, healthcare, defense, and government may face heavy fines and reputational damage for failing to comply with data residency laws, as they cannot truly verify the sovereignty claims made by their service providers.3 Secondly, in specific scenarios, it may even introduce security vulnerabilities. Without a mechanism for continuous, automated verification of the physical location and integrity of hardware (as described by RATS), processing devices are unable to detect unauthorized physical movement or theft, thereby maintaining the device within a secure boundary and reducing the risk of undetected tampering or replacement.,3
 
 The current market is characterized by a fragmented landscape of proprietary solutions, leaving customers without a simple, trustworthy, and interoperable method to verify that their data remains within a specific jurisdiction. This standard addresses this challenge by creating the technical foundation for a zero-trust computing environment where trust is not assumed based on network location or contractual promises, but is instead established through continuous cryptographic verification.3
 
-### **0.3 Principles of Location-Based Attestation** {#0.3-principles-of-location-based-attestation}
+### **0.3 Principles of Location-Based Attestation**
 
 This document introduces a novel approach to location verification that is founded on the principles of physics and extends the established practice of remote attestation. The core technical principle is "Ping-Based Location Attestation," which integrates physical geolocation measurements directly into the cryptographic proof of a device's identity and trustworthiness of the system state attested via RATS.
 
@@ -537,9 +503,7 @@ The following table provides a mapping from identified threat scenarios to the s
 | Policy Evasion via VPN | An Attester outside an allowed jurisdiction routes its traffic through a VPN or proxy located within the jurisdiction to falsify its location. | The Verifier's location computation algorithm SHALL incorporate checks for network path anomalies that are characteristic of tunneling. **(6.3.1.3, 8.3.4)** |
 | Stale VAR Usage | An application continues to operate using a previously valid VAR after its expiration, potentially violating a newly enforced security policy. | The Attester and Relying Party SHALL enforce the VAR's expiration time. The system SHALL operate in a fail-closed mode if a valid VAR cannot be maintained. **(8.4.2)** |
 
-## 
-
-## **Annex A (Normative) Sovereignty Certificate EAT Profile** {#annex-a-(normative)-sovereignty-certificate-eat-profile}
+## **Annex A (Normative) Sovereignty Certificate EAT Profile**
 
 ### **A.1 Profile Definition**
 
@@ -580,9 +544,7 @@ The following table defines the normative claims set for the Sovereignty Certifi
 | iat | 6 | int | Evidence, VAR | The issuance time of the token, as a Unix timestamp (seconds since 1970-01-01T00:00:00Z). Mandatory in Evidence and VAR. |
 | exp | 4 | int | VAR | The expiration time of the VAR, as a Unix timestamp. Mandatory in VAR. |
 
-## 
-
-## **Annex B (Informative) Example Implementation Workflow** {#annex-b-(informative)-example-implementation-workflow}
+## **Annex B (Informative) Example Implementation Workflow**
 
 This annex provides a non-normative, step-by-step example of the end-to-end process for obtaining and using a Sovereignty Certificate. This example is intended to aid implementers in understanding the practical application of the normative requirements defined in this standard.
 
@@ -659,7 +621,7 @@ In non-containerized VM environments, the architectural roles map as follows:
 
 In scenarios where the Relying Party relies on the "Background Check" model (refer to 4.2.3 ), the Attester does not present the VAR directly. Instead, the Attester presents a Reference Ticket (or the ephemeral public key), and the Relying Party submits this identifier to the Verifier to retrieve the VAR directly. This shifts the "Ungating" logic (B.6) from the Application to the Relying Party.
 
-## **Annex C (Informative) Crosswalk to Existing Standards** {#annex-c-(informative)-crosswalk-to-existing-standards}
+## **Annex C (Informative) Crosswalk to Existing Standards**
 
 #### **C.1 Introduction**
 
@@ -687,8 +649,6 @@ The following table maps the core components and concepts of the Sovereignty Cer
 | **C.2.6 Security Controls & Physical Security** | **Cloud Security Alliance (CSA) Cloud Controls Matrix (CCM) v4.0** | **Mapping:** The physicalSecurity claim within the certificate can attest to compliance with specific controls from the CCM's "Datacenter Security" (DCS) and "Physical & Environmental Security" (PE) domains. **Rationale:** This maps the technical attestations of the certificate to a widely recognized cloud security framework used for auditing and vendor risk management. It allows an organization to use the certificate as direct evidence of a Cloud Service Provider's compliance. **Implementation:** A Sovereignty Certificate **MAY** include claims asserting compliance with specific CCM controls (e.g., ccm\_control\_id: "DCS-01"). Verifiers can use this to automate checks against their own compliance requirements. |
 | **C.2.7 Security Controls & Data Residency** | **NIST Special Publication 800-53 Rev. 5** | **Mapping:** The certificate serves as a technical mechanism to help satisfy control objectives within the "Physical and Environmental Protection" (PE) and "System and Communications Protection" (SC) control families.  **Rationale:** For organizations aligned with the NIST Risk Management Framework (RMF), the certificate provides verifiable evidence for controls related to physical location, information flow enforcement, and boundary protection.  **Implementation:** An organization's system security plan (SSP) **MAY** reference the use of Sovereignty Certificates as a technical implementation for satisfying specific NIST SP 800-53 controls (e.g., PE-3: Physical Access Control, SC-7: Boundary Protection). |
 | **C.2.8 Regulatory & Data Sovereignty Alignment** | **EU General Data Protection Regulation (GDPR)** & **EU Cybersecurity Certification Scheme for Cloud Services (EUCS)** | **Mapping:** The certificate provides a technical means to demonstrate compliance with data residency and data localization requirements, which are central tenants of GDPR (e.g., Chapter V on data transfers) and the "High" assurance level of EUCS.  **Rationale:** These regulations require data controllers to be accountable for where data is processed. The certificate moves beyond contractual assurances to provide tangible, cryptographic proof, significantly strengthening an organization's compliance posture.  **Implementation:** Organizations **SHOULD** use Sovereignty Certificates as part of their technical and organizational measures (as required by GDPR Article 32\) to demonstrate that data processing occurs within a permitted jurisdiction. |
-
-#### 
 
 ## **References**
 
