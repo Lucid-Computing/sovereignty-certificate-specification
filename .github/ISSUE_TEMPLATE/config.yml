@@ -1,0 +1,7 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Open Discussion
+    url: https://github.com/Lucid-Computing/sovereignty-certificate-specification/discussions
+    about: |
+      Use GitHub Discussions for open-ended conversations, implementation
+      experience, and broader questions that don't fit into a specific issue.

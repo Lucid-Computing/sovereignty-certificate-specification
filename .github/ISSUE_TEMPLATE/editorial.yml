@@ -1,0 +1,27 @@
+name: Editorial Feedback
+description: Report a typo, grammatical error, unclear wording, or formatting issue
+title: "[Editorial] "
+labels: ["editorial"]
+body:
+  - type: input
+    id: section
+    attributes:
+      label: Section Reference
+      description: Which section of the specification does this relate to?
+      placeholder: "e.g., Section 6.3.1 or Annex A.2"
+    validations:
+      required: true
+  - type: textarea
+    id: current-text
+    attributes:
+      label: Current Text
+      description: Quote the current text that contains the issue.
+    validations:
+      required: true
+  - type: textarea
+    id: suggested-text
+    attributes:
+      label: Suggested Correction
+      description: Provide the corrected text.
+    validations:
+      required: true

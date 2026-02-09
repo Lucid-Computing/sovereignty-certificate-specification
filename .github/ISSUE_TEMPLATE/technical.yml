@@ -1,0 +1,31 @@
+name: Technical Issue
+description: Report a technical concern, security consideration, protocol design question, or interoperability issue
+title: "[Technical] "
+labels: ["technical"]
+body:
+  - type: input
+    id: section
+    attributes:
+      label: Section Reference
+      description: Which section(s) of the specification does this relate to?
+      placeholder: "e.g., Section 5.3, Section 8.3.4"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: |
+        Describe the technical concern. Include references to external
+        standards or specifications if relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed Resolution
+      description: |
+        If you have a suggested resolution, describe it here.
+        This is optional.
+    validations:
+      required: false
